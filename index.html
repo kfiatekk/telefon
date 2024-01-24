@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="iphone" id="telefon">
+        <div class="screen">
+            <div id="notepad" class="notepad"></div>
+        </div>
+        <div class="bar" id="wyszukajj">
+            <input id="wyszuk" type="text" class="wyszukaj" placeholder="Wyszukaj...">
+        </div>
+        <div class="icons" id="ikony">
+            <div class="app" onclick="openApp('ticTacToe')"></div>
+            <div class="app" id="clock"></div>
+            <div onclick="openApp('notepad')" class="app"><i class="fas fa-sticky-note"></i></div>
+            <div class="app"></div>
+        </div>
+        <div class="notch">
+            <div class="camera"></div>
+            <div class="speaker"></div>
+        </div>
+        <div class="home">
+            <div onclick="home()" class="circle2"></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var clockIcon = document.getElementById("clock");
+
+            function updateClock() {
+                var currentTimePoland = new Date().toLocaleTimeString("pl-PL", { hour12: false });
+                var timeContainer = document.querySelector(".time-container");
+                timeContainer.innerHTML = "<p class='big-numbers'>" + currentTimePoland + "</p>";
+            }
+
+            clockIcon.addEventListener("click", function () {
+                var newScreen = document.createElement("div");
+                newScreen.classList.add("screen");
+                newScreen.style.borderRadius = "30px";
+
+                var timeContainer = document.createElement("div");
+                timeContainer.classList.add("time-container");
+
+                newScreen.appendChild(timeContainer);
+
+                var iphone = document.querySelector(".iphone");
+                var existingScreen = document.querySelector(".screen");
+                iphone.replaceChild(newScreen, existingScreen);
+
+                setInterval(function () {
+                    updateClock();
+                    var timeContainer = document.querySelector(".time-container");
+                    timeContainer.classList.add("oscillate");
+                    setTimeout(function () {
+                        timeContainer.classList.remove("oscillate");
+                    }, 1000);
+                }, 1000);
+
+                updateClock();
+            });
+
+        });
+    </script>
+</body>
+</html>
